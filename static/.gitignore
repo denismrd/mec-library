@@ -1,4 +1,2 @@
-style.scss
-style.css.map
-success.css.map
-success.scss
+*.scss
+*.css.map
