@@ -1,0 +1,220 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+body {
+    min-height: 100vh;
+    height: 300vh;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    padding: 20px 0 20px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    display: inline-block;
+    height: 100%;
+}
+header img {
+    display: inline-block;
+    height: 100%;
+    padding: 0 50px;
+    border-right: 1px grey solid;
+}
+@media (max-width: 615px) {
+    header img {
+        padding: 0 15px;
+    }
+    header {
+        height: 60px;
+    }
+}
+@media (max-width: 510px) {
+    header {
+        height: 50px;
+    }
+    header img {
+        padding: 0 8px;
+    }
+}
+@media (max-width: 383px) {
+    header {
+        height: 40px;
+    }
+    header img {
+        padding: 0 8px;
+    }
+}
+header .app-name {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(2, 47, 83);
+    font-weight: bold;
+    font-size: 20px;
+}
+@media (max-width: 800px) {
+    header .app-name {
+        display: none;
+    }
+    header img {
+        border: none;
+    }
+    form {
+        padding: 40px 0 !important;
+    }
+}
+.app-name .book-logo {
+    margin-right: 10px;
+    font-size: 30px;
+}
+.app-name .app-text {
+    text-align: center;
+    font-style: italic;
+}
+main {
+    flex-grow: 1;
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.5) 100%,
+            rgba(0, 0, 0, 0.5) 100%
+        ),
+        url("libimage.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    text-align: center;
+    padding: 30px;
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+}
+.dept-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.83);
+
+    padding: 40px 20px;
+    border-radius: 3px;
+    width: 80%;
+}
+form > .name-box input,
+form > .mail-box input,
+.book-count .count {
+    border: 1px solid rgba(0, 0, 60, 0.5);
+}
+label,
+.book-count .text {
+    width: 40%;
+    text-align: right;
+}
+form .name-box,
+.date-box,
+form .mail-box,
+.book-count {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 30px;
+}
+@media (max-width: 1100px) {
+    .book .name-box,
+    .date-box {
+        width: 100%;
+    }
+}
+.book-count .data {
+    width: 45%;
+    display: flex;
+
+    align-items: center;
+}
+.data .count {
+    height: 25px;
+    width: 50px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-right: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-count button {
+    width: 25px;
+    height: 25px;
+    background-color: rgb(97, 0, 0);
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 2px;
+}
+.book-count button:first-of-type {
+    margin-right: 10px;
+}
+.book-details {
+    margin-bottom: 0;
+    width: 80%;
+}
+.book {
+    background-color: rgba(0, 0, 60, 0.5);
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.book .name-box label,
+.book .date-box label {
+    color: white;
+}
+.book .title {
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.book .date-box {
+    margin-bottom: 0;
+}
+
+.book2,
+.book3 {
+    max-height: 200px;
+    transition: all 0.3s;
+    overflow: hidden;
+    box-sizing: border-box !important;
+}
+input {
+    box-sizing: border-box;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    width: 45%;
+    padding: 5px 7px;
+}
+.submit {
+    background-color: rgba(230, 111, 0, 0.94);
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 2px;
+}
+.hide {
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

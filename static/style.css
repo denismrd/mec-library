@@ -1,0 +1,582 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.confirm-container {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  padding: 10px;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.confirm-container:target {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.box {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 3px;
+  padding: 40px;
+  background-color: white;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (max-width: 450px) {
+  .box {
+    padding: 7vw;
+  }
+}
+
+.confirm {
+  display: -ms-grid;
+  display: grid;
+  justify-items: start;
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  row-gap: 15px;
+  border-radius: 3px;
+  overflow: auto;
+}
+
+@media (max-width: 400px) {
+  .confirm {
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+  }
+}
+
+.confirm .name,
+.confirm .email,
+.confirm .start,
+.confirm .end {
+  font-weight: bold;
+}
+
+.confirm .name-data,
+.confirm .email-data {
+  margin-left: -50px;
+}
+
+.confirm .book-dt {
+  grid-column: 1/-1;
+  background-color: #000043;
+  color: white;
+  padding: 2px 10px;
+}
+
+.confirm .end-data {
+  color: red;
+}
+
+.confirm .book-name {
+  color: #000043;
+  grid-column: 1/-1;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.confirm * div {
+  display: inline-block;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.edit {
+  margin-right: 10px;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#1d0000), to(red)) !important;
+  background-image: linear-gradient(to bottom right, #1d0000, red) !important;
+}
+
+.buttons > * {
+  display: inline-block;
+  background-color: #dc8f00;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#002100), to(green));
+  background-image: linear-gradient(to bottom right, #002100, green);
+  border-radius: 150px;
+  width: 100px;
+  border: none;
+  outline: none;
+  padding: 5px 20px;
+  overflow: hidden;
+  color: white;
+}
+
+.top {
+  display: none;
+  background-color: #000230;
+  color: white;
+  text-align: right;
+  padding: 5px 10px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .top {
+    display: block;
+  }
+}
+
+@media (max-width: 500px) {
+  .top {
+    font-size: 3vw;
+  }
+}
+
+.top > div {
+  display: inline-block;
+  background-color: yellow;
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
+  color: black;
+  -webkit-transform: skewX(-45deg) scale(1.5);
+          transform: skewX(-45deg) scale(1.5);
+}
+
+.top > div div {
+  -webkit-transform: skewX(45deg) scale(0.66);
+          transform: skewX(45deg) scale(0.66);
+}
+
+header {
+  padding: 20px;
+  height: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media (max-width: 615px) {
+  header {
+    height: 12vw;
+    padding: 3.2vw;
+  }
+}
+
+header .logo {
+  display: inline-block;
+  height: 100%;
+}
+
+header .logo img {
+  display: inline-block;
+  height: 100%;
+  padding: 0 3vw;
+  border-right: 1px grey solid;
+}
+
+@media (max-width: 615px) {
+  header .logo img {
+    padding: 0;
+    border: none;
+  }
+}
+
+@media (max-width: 800px) {
+  header .logo img {
+    border: none;
+  }
+}
+
+header .app-name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #022f53;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+header .app-name .book-logo {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+header .app-name .app-text {
+  text-align: center;
+  font-style: italic;
+}
+
+@media (max-width: 800px) {
+  header .app-name {
+    display: none;
+  }
+}
+
+main {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(100%, rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("libimage.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%), url("libimage.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  text-align: center;
+  padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (max-width: 800px) {
+  main {
+    padding: 30px 0 !important;
+  }
+}
+
+.dept-text {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+@media (max-width: 450px) {
+  .dept-text {
+    font-size: 25px;
+  }
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.83);
+  padding: 40px 20px;
+  border-radius: 3px;
+  width: 80%;
+}
+
+form > .name-box input {
+  border: 1px solid rgba(0, 0, 60, 0.5);
+}
+
+form > .mail-box input {
+  border: 1px solid rgba(0, 0, 60, 0.5);
+}
+
+.book-count {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin-bottom: 30px;
+}
+
+.book-count .count {
+  border: 1px solid rgba(0, 0, 60, 0.5);
+  height: 25px;
+  width: 50px;
+  font-weight: bold;
+  border-radius: 3px;
+  margin-right: 40px;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.book-count .data {
+  width: 45%;
+  min-width: 215px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.book-count button {
+  width: 25px;
+  height: 25px;
+  background-color: #610000;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 2px;
+}
+
+.book-count button:first-of-type {
+  margin-right: 10px;
+}
+
+label,
+.book-count .text {
+  width: 40%;
+  margin-right: 10px;
+  text-align: right;
+}
+
+@media (max-width: 550px) {
+  label,
+  .book-count .text {
+    text-align: left;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.date-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin-bottom: 30px;
+}
+
+.book-details {
+  margin-bottom: 0;
+  width: 90%;
+}
+
+.book {
+  background-color: rgba(0, 0, 60, 0.5);
+  border-radius: 3px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.book .name-box label {
+  color: white;
+}
+
+.book .date-box {
+  margin-bottom: 0;
+}
+
+.book .date-box label {
+  color: white;
+}
+
+.book .title {
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.book input {
+  border: 1px solid rgba(0, 0, 60, 0.5);
+}
+
+@media (max-width: 800px) {
+  .book .name-box,
+  .book .date-box {
+    width: 100%;
+  }
+}
+
+.book2,
+.book3 {
+  display: block;
+  max-height: 255px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  overflow: hidden;
+}
+
+.name-box,
+.mail-box,
+.book-count,
+.date-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 550px) {
+  .name-box,
+  .mail-box,
+  .book-count,
+  .date-box {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+  }
+}
+
+input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  width: 45%;
+  min-width: 215px;
+  padding: 5px 7px;
+  height: 35px;
+}
+
+@media (max-width: 550px) {
+  input {
+    min-width: 100%;
+  }
+}
+
+input:focus:invalid {
+  border: 1px solid rgba(0, 0, 60, 0.5) !important;
+  border-bottom: rgba(255, 0, 0, 0.802) solid 3px !important;
+}
+
+input:focus:valid {
+  border-bottom: green solid 3px;
+}
+
+.submit {
+  background-color: rgba(230, 111, 0, 0.94);
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 2px;
+}
+
+button {
+  cursor: pointer;
+  -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.392);
+          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.392);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+button:active {
+  -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.hide {
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.fas,
+.far {
+  color: #000037;
+  margin-right: 8px;
+}
+
+.studicon {
+  color: #000037;
+}
+
+.mailicon {
+  color: #000037;
+}
+/*# sourceMappingURL=style.css.map */

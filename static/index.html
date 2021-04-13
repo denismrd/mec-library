@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://kit.fontawesome.com/b388d0d199.js" crossorigin="anonymous"></script>
+        <title>MEC-Library</title>
+        <style></style>
+    </head>
+    <body>
+        <div class="confirm-container">
+           <div class="box">
+                <div class="confirm">
+                    <div class="name">Name :</div>
+                    <div class="name-data">Denis Raja M</div>
+                    <div class="email">Email &nbsp;:</div>
+                    <div class="email-data">denismrd93@gmail.com</div>
+                    <div class="book-dt">Books Details</div>
+                    
+                </div>
+                <div class="buttons">
+                    <button class="edit">Edit</button>
+                    <button class="con">Confirm</button>
+                </div>
+           </div>
+        </div>
+        <div class="top">
+           <div>
+                <div>📚 Due Date Remainder</div>
+           </div>
+        </div>
+        <header>
+            <div id="#logo" class="logo">
+                <img
+                    src="https://mec.edu.in/wp-content/uploads/2021/02/main-logo.png"
+                    alt="college-logo"
+                />
+            </div>
+            <div class="app-name">
+                <div class="book-logo">📚</div>
+                 <div class="app-text">Due Date <br />Remainder</div>
+        </header>
+        <main>
+            <h1 class="dept-text">Department of Library</h1>
+            <form action="success.html" method="GET">
+                <div class="name-box">
+                    <label for="name"><i class="studicon fas fa-user"></i>Student Name</label>
+                    <input required type="text" name="name" id="name" />
+                </div>
+                <div class="mail-box">
+                    <label for="mail"><i class="mailicon fas fa-envelope"></i>E-mail</label>
+                    <input required type="email" id="mail" />
+                </div>
+                <div class="book-count">
+                    <div class="text"><i class="fas fa-book"></i>No. of books</div>
+                    <div class="data">
+                        <div class="count">1</div>
+                        <button class="plus">+</button>
+                        <button class="minus">-</button>
+                    </div>
+                </div>
+                <div class="book-details">
+                    <div class="book1 book">
+                        <div class="title">BOOK-1</div>
+                        <div class="name-box">
+                            <label for="bname1"><i class="fas fa-book-open"></i>Name</label>
+                            <input required type="text" name="bname1" id="bname1" />
+                        </div>
+                        <div class="date-box">
+                            <label for="date1"><i class="far fa-calendar-alt dateicon"></i> Date taken</label>
+                            <input required type="date" name="bdate1" id="date1" />
+                        </div>
+                    </div>
+                    <div class="book2 book hide">
+                        <div class="title">BOOK-2</div>
+                        <div class="name-box">
+                            <label for="bname2">Name</label>
+                            <input type="text" id="bname2" />
+                        </div>
+                        <div class="date-box">
+                            <label for="date2">Date taken</label>
+                            <input type="date" id="date2" />
+                        </div>
+                    </div>
+                    <div class="book3 book hide">
+                        <div class="title">BOOK-3</div>
+                        <div class="name-box">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" />
+                        </div>
+                        <div class="date-box">
+                            <label for="date3">Date taken</label>
+                            <input type="date" id="date3" />
+                        </div>
+                    </div>
+                </div>
+                <button class="submit" >Submit</button>
+            </form>
+        </main>
+        <script src="script.js"></script>
+    </body>
+</html>

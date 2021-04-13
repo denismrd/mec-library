@@ -1,0 +1,18 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Remind the students about due date by sending email",
+  "main": "index.js",
+  "engines": {
+    "node": "14.16.1",
+    "npm": "6.14.12"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Mern stack PD",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
