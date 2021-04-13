@@ -1,2 +1,3 @@
-*.scss
-*.css.map
+style.scss
+style.css.map
+success.css.map
