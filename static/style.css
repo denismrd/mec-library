@@ -568,15 +568,14 @@ button:hover {
 
 .fas,
 .far {
+  display: none !important;
   color: #000037;
   margin-right: 8px;
 }
-
-.studicon {
-  color: #000037;
+@media (max-width:550px) {
+  .fas, .far {
+    display: inline-block !important;
+  }
 }
 
-.mailicon {
-  color: #000037;
-}
 /*# sourceMappingURL=style.css.map */

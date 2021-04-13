@@ -417,10 +417,8 @@ button:hover {
 .far {
     color: rgb(0, 0, 55);
     margin-right: 8px;
-}
-.studicon {
-    color: rgb(0, 0, 55);
-}
-.mailicon {
-    color: rgb(0, 0, 55);
+    display: none !important;   
+    @media (max-width:550px) {
+        display: inline-block !important;
+    }
 }
