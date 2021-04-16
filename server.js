@@ -73,6 +73,11 @@ app.get("/", (req, res)=> {
 //     res.redirect("/")
 // })
 
+function convertDate(date) {
+    let n = new Date(date)
+    return `${(n.getDate()+"").padStart(2,"0")}-${(n.getMonth()+1+"").padStart(2,"0")}-${(n.getFullYear()+"").padStart(2,"0")}`
+}
+
 app.post("/register",urlencoded, (req, res) => {
     
     req.body.bcount = Number(req.body.bcount)
@@ -110,6 +115,14 @@ app.post("/register",urlencoded, (req, res) => {
                         showbooks : 1,
                         ...req.body
                     })
+                    let str = "";
+                    let i=1
+                    for(i=1; i<req.body.bcount; i++) {
+                        str+=`<b>${i}) ${req.body['bname'+i]}</b> <br><br> Date taken : ${convertDate(req.body['bdate'+i])}&emsp;&emsp;
+                        Due Date : ${convertDate(req.body['bdue'+i])}<br><br>`
+                    }
+                    str+=`<b>${i}) ${req.body['bname'+i]}</b> <br><br> Date taken : ${convertDate(req.body['bdate'+i])}&emsp;&emsp;
+                        Due Date : ${convertDate(req.body['bdue'+i])}`
                     let mailoptions = {
                         from : '"MEC Library" muthayammal.library.edu@gmail.com',
                         to : req.body.email,
@@ -120,6 +133,8 @@ app.post("/register",urlencoded, (req, res) => {
                         Your reminders got set up successfully, you will be reminded about the due dates through this mail id.
                         <br>
                         <br>
+                        Here are the details about the books you've taken :<br><br><hr>
+                        ${str}<hr><br>
                         Learn freely without worry about due date, we are here to remind you!
                         <br>
                         <br>
