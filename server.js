@@ -91,7 +91,7 @@ app.post("/register",urlencoded, (req, res) => {
                         ...doc
                     })
                     else 
-                    res.send("I will add this option soon, please visit later...")
+                    res.send("          I will add this option soon, please visit later...")
                 }
                 else {
                     res.render("success", {
@@ -111,7 +111,7 @@ app.post("/register",urlencoded, (req, res) => {
                         ...req.body
                     })
                     let mailoptions = {
-                        from : "muthayammal.library.edu@gmail.com",
+                        from : '"MEC Library" muthayammal.library.edu@gmail.com',
                         to : req.body.email,
                         subject: "Reminders got set up successfully",
                         html :`Hi <b>${req.body.name}</b>,

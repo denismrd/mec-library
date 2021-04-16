@@ -13,6 +13,10 @@ const bookdet = document.querySelectorAll(".book-det");
 let form = document.querySelector("form");
 let submit = document.querySelector(".submit");
 
+// if(performance.navigation.type == 2){
+//     location.reload()
+//  }
+
 let bc = 1; //To track the books count
 let today = new Date(); //Getting today's date
 bcounthid.value =bc;
@@ -51,7 +55,6 @@ function addBookSlot(e) {
         return alert("Maximum limit reached !!");
     }
     bcount.textContent = bc;
-    bcounthid.value = bc;
 
     books[bc].classList.remove("hide");
     books[bc].querySelector(`.book${bc} .name-box input`).required = true;
@@ -75,7 +78,6 @@ function removeBookSlot(e) {
     books[bc].querySelector(`.book${bc} .date-box input`).name = "";
     bc--;
     bcount.textContent = bc;
-    bcounthid.value = bc;
 }
 
 //Function to show the confirm-popup-box
@@ -99,6 +101,7 @@ function bldcfm() {
     document.querySelector(".email-data").textContent = document.querySelector(
         ".mail-box input"
     ).value;
+    bcounthid.value = bc;
     for (let i = 1; i <= bc; i++) {
         let dt = books[i].querySelector(".date-box input").value;
         let d = new Date(dt);
