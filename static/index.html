@@ -33,7 +33,7 @@
         </div>
         <div class="top">
            <div>
-                <div>📚 Due Date Remainder</div>
+                <div>📚 Due Date Reminder</div>
            </div>
         </div>
         <header>
@@ -45,20 +45,25 @@
             </div>
             <div class="app-name">
                 <div class="book-logo">📚</div>
-                 <div class="app-text">Due Date <br />Remainder</div>
+                 <div class="app-text">Due Date <br />Reminder</div>
         </header>
         <main>
             <h1 class="dept-text">Department of Library</h1>
-            <form action="success.html" method="GET">
+            <form action="register" method="POST">
                 <div class="name-box">
                     <label for="name"><i class="studicon fas fa-user"></i>Student Name</label>
-                    <input required type="text" name="name" id="name" />
+                    <input required type="text" name="name" id="name" minlength="2" />
+                </div>
+                <div class="roll-no">
+                    <label for="rollno"><i class="fas fa-list-ol"></i>Roll number</label>
+                    <input required type="text" name="rollno" id="rollno" minlength="4" placeholder="ex. 18CS025"/>
                 </div>
                 <div class="mail-box">
                     <label for="mail"><i class="mailicon fas fa-envelope"></i>E-mail</label>
-                    <input required type="email" id="mail" />
+                    <input required type="email" name="email" id="mail" />
                 </div>
                 <div class="book-count">
+                    <input type="number" class="hidden-inputs" value="1" name="bcount">
                     <div class="text"><i class="fas fa-book"></i>No. of books</div>
                     <div class="data">
                         <div class="count">1</div>
@@ -71,34 +76,37 @@
                         <div class="title">BOOK-1</div>
                         <div class="name-box">
                             <label for="bname1"><i class="fas fa-book-open"></i>Name</label>
-                            <input required type="text" name="bname1" id="bname1" />
+                            <input required type="text" name="bname1" minlength="3" id="bname1" placeholder="Enter the book name" />
                         </div>
                         <div class="date-box">
                             <label for="date1"><i class="far fa-calendar-alt dateicon"></i> Date taken</label>
                             <input required type="date" name="bdate1" id="date1" />
                         </div>
+                        <input type="date" name=bdue1 class="hidden-inputs">
                     </div>
                     <div class="book2 book hide">
                         <div class="title">BOOK-2</div>
                         <div class="name-box">
-                            <label for="bname2"><i class="fas fa-book-open"></i>Name</label>
-                            <input type="text" id="bname2" />
+                            <label for="bname2"><i class="fs fa-book-open"></i>Name</label>
+                            <input type="text" id="bname2" minlength="3" placeholder="Enter the book name" />
                         </div>
                         <div class="date-box">
                             <label for="date2"><i class="far fa-calendar-alt dateicon"></i>Date taken</label>
                             <input type="date" id="date2" />
                         </div>
+                        <input type="date" class="hidden-inputs">
                     </div>
                     <div class="book3 book hide">
                         <div class="title">BOOK-3</div>
                         <div class="name-box">
                             <label for="name"><i class="fas fa-book-open"></i>Name</label>
-                            <input type="text" id="name" />
+                            <input type="text" id="name" minlength="3" placeholder="Enter the book name" />
                         </div>
                         <div class="date-box">
                             <label for="date3"><i class="far fa-calendar-alt dateicon"></i>Date taken</label>
-                            <input type="date" id="date3" />
+                            <input type="date" id="date3"  />
                         </div>
+                        <input type="date" class="hidden-inputs">
                     </div>
                 </div>
                 <button class="submit" >Submit</button>

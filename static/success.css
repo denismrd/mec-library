@@ -205,12 +205,16 @@ main {
   margin-bottom: 20px;
 }
 
-.content .icon {
+.content .right {
   padding: 25px;
   border-radius: 50%;
   background-color: #00a500;
 }
-
+.content .wrong {
+  padding: 25px 33px;
+  border-radius: 50%;
+  background-color: #dd1b01;
+}
 .content .fas {
   color: White;
   font-size: 50px;
@@ -255,7 +259,19 @@ main {
   color: red;
 }
 
-button {
+.back {
+  display: inline-block;
+  background-color: rgba(230, 111, 0, 0.94);
+  border: none;
+  outline: none;
+  padding: 6px 16px;
+  color: white;
+  border-radius: 2px;
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
   cursor: pointer;
   -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.392);
           box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.392);
@@ -263,14 +279,14 @@ button {
   transition: 0.3s;
 }
 
-button:active {
+a:active {
   -webkit-transform: translate(2px, 2px);
           transform: translate(2px, 2px);
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
-button:hover {
+a:hover {
   opacity: 0.85;
 }
 

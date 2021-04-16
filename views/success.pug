@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="success.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
+        <script src="https://kit.fontawesome.com/b388d0d199.js" crossorigin="anonymous"></script>
+        <title>MEC-Library</title>
+    </head>
+    <body>
+       
+        <div class="top">
+           <div>
+                <div>📚 Due Date Reminder</div>
+           </div>
+        </div>
+        <header>
+            <div id="#logo" class="logo">
+                <img src="https://mec.edu.in/wp-content/uploads/2021/02/main-logo.png" alt="college-logo"/>
+            </div>
+            <div class="app-name">
+                <div class="book-logo">📚</div>
+                 <div class="app-text">Due Date <br />Reminder</div>
+        </header>
+        <main>
+            <h1 class="dept-text">Department of Library</h1>
+            <div class="content">
+                -if(!error){
+                    <div class="right"><i class="fas fa-check"></i></div>
+                -}
+                -else{
+                    <div class="wrong"><i class="fas fa-times"></i></div>
+                -}
+                <p class="greeting" style="text-align:center;">Hi <span>#{locals.name}</span>,</p>
+                <p class="status">#{status}</p>
+                
+                -if(showbooks) {
+                    <p class="info">#{info}</p>
+                    .books
+                        -for(let i=1; i<=bcount; i++) {
+                            -let n = new Date(locals['bdue'+i])
+                            -let dt = `${(n.getDate()+"").padStart(2,"0")}-${(n.getMonth()+1+"").padStart(2,"0")}-${(n.getFullYear()+"").padStart(2,"0")}`
+                            <div class="name">#{locals['bname'+i]}</div><div class="symbol">:</div><div class="date">#{dt}</div>
+                        -}
+                -} else {
+                -}
+                <a href="/" class="back">Back </a>
+            </div>
+        </main>
+    </body>
+</html>
