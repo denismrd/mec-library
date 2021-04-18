@@ -35,16 +35,14 @@
                 -else{
                     <div class="wrong"><i class="fas fa-times"></i></div>
                 -}
-                <p class="greeting" style="text-align:center;">Hi <span>#{locals.name}</span>,</p>
+                <p class="greeting" style="text-align:center;">Hi <span>#{name}</span>,</p>
                 <p class="status">#{status}</p>
                 
                 -if(showbooks) {
                     <p class="info">#{info}</p>
                     .books
-                        -for(let i=1; i<=bcount; i++) {
-                            -let n = new Date(locals['bdue'+i])
-                            -let dt = `${(n.getDate()+"").padStart(2,"0")}-${(n.getMonth()+1+"").padStart(2,"0")}-${(n.getFullYear()+"").padStart(2,"0")}`
-                            <div class="name">#{locals['bname'+i]}</div><div class="symbol">:</div><div class="date">#{dt}</div>
+                        -for(let i=0; i<bcount; i++) {
+                            <div class="name">#{bnames[i]}</div><div class="symbol">:</div><div class="date">#{convertDate(bdue[i])}</div>
                         -}
                 -} else {
                 -}

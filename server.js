@@ -45,15 +45,9 @@ let userModel = new mongo.Schema( {
         required : true
     },
     bcount : Number,
-    bname1 : String,
-    bdate1 : String,
-    bdue1 : String,
-    bname2 : String,
-    bdate2 : String,
-    bdue2 : String,
-    bname3 : String,
-    bdate3 : String,
-    bdue3 : String
+    bnames : [String],
+    btaken : [String],
+    bdue : [String]
 })
 let user = mongo.model("student", userModel)
 // let stud1 = new user({
@@ -65,6 +59,13 @@ let user = mongo.model("student", userModel)
 
 let port = process.env.PORT || 8000;
 app.listen(port, ()=>console.log("started"))
+if(process.argv[2]==="d") user.deleteMany({}, (err, result) => {
+    if(err) console.log(err);
+    else
+    console.log("all documents deleted");
+});
+
+
 app.get("/", (req, res)=> {
     res.sendFile(`${__dirname}/static/index.html`)
 })
@@ -79,55 +80,87 @@ function convertDate(date) {
 }
 
 app.post("/register",urlencoded, (req, res) => {
-    
-    req.body.bcount = Number(req.body.bcount)
-    user.findOne({email : req.body.email}, (err, doc) => {
+
+    let data = {
+        name : req.body.name,
+        rollno : req.body.rollno,
+        email : req.body.email,
+        bcount : Number(req.body.bcount),
+        bnames : [],
+        btaken : [],
+        bdue : []
+    }
+    for(let i=1; i<=req.body.bcount; i++) {
+        data.bnames.push(req.body['bname' + i]);
+        data.btaken.push(req.body['bdate' + i]);
+        data.bdue.push(req.body['bdue'+i]);
+    }
+    user.findOne({email : data.email}, (err, doc) => {
         if(err) res.send(err)
         else {
             if(doc) {
                 doc = doc._doc
-                if(doc.rollno === req.body.rollno) {
-                    if(doc.bcount + req.body.bcount > 3)
+                if(doc.rollno === data.rollno) {
+                    if(doc.bcount + data.bcount > 3)
                     res.render("success",{
                         error: 1,
                         status:`you already have ${doc.bcount} remainders running and you are allowed to have only 3 remainders at a time, delete your previous reminders and try again.`,
                         info : "These are the reminders you have currently :",
                         showbooks : 1,
+                        convertDate : convertDate,
                         ...doc
                     })
-                    else 
-                    res.send("          I will add this option soon, please visit later...")
+                    else {
+                        for(let i=0; i<data.bcount; i++) {
+                            doc.bnames.push(data.bnames[i])
+                            doc.bdue.push(data.bdue[i])
+                            doc.btaken.push(data.btaken[i])
+                            doc.bcount++;
+                        }
+                        res.render("success",{
+                            error: 0,
+                            status:`Your reminders list is updated successfully`,
+                            info : "These are the reminders you have currently :",
+                            showbooks : 1,
+                            convertDate : convertDate,
+                            ...doc
+                        })
+                        user.updateOne({rollno : doc.rollno,email : doc.email}, doc, (err, doc)=>{
+                            if(!err) remind()
+                        })
+                    }
                 }
                 else {
                     res.render("success", {
                         error : 1,
                         status: "This email id is registerd with another user, first delete those reminders and try again...",
                         showbooks : 0,
-                        name: req.body.name
+                        name: data.name
                     })
                 }
             } else {
-                user.create(req.body).then((doc) => {
+                user.create(data).then((doc) => {
                     res.render("success", {
                         error: 0,
                         status : "Your reminders got set up successfully.",
                         info : "You will be notified with the email before the following due dates :",
                         showbooks : 1,
-                        ...req.body
+                        convertDate : convertDate,
+                        ...data
                     })
                     let str = "";
-                    let i=1
-                    for(i=1; i<req.body.bcount; i++) {
-                        str+=`<b>${i}) ${req.body['bname'+i]}</b> <br><br> Date taken : ${convertDate(req.body['bdate'+i])}&emsp;&emsp;
-                        Due Date : ${convertDate(req.body['bdue'+i])}<br><br>`
+                    let i;
+                    for(i=0; i<data.bcount-1; i++) {
+                        str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
+                        Due Date : ${convertDate(data.bdue[i])}<br><br>`
                     }
-                    str+=`<b>${i}) ${req.body['bname'+i]}</b> <br><br> Date taken : ${convertDate(req.body['bdate'+i])}&emsp;&emsp;
-                        Due Date : ${convertDate(req.body['bdue'+i])}`
+                    str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
+                        Due Date : ${convertDate(data.bdue[i])}`
                     let mailoptions = {
                         from : '"MEC Library" muthayammal.library.edu@gmail.com',
-                        to : req.body.email,
+                        to : data.email,
                         subject: "Reminders got set up successfully",
-                        html :`Hi <b>${req.body.name}</b>,
+                        html :`Hi <b>${data.name}</b>,
                         <br>
                         <br>
                         Your reminders got set up successfully, you will be reminded about the due dates through this mail id.
@@ -141,8 +174,8 @@ app.post("/register",urlencoded, (req, res) => {
                         KEEP READING!!&emsp;  KEEP GROWING!!`
                     }
                     transporter.sendMail(mailoptions, (err, det)=> {
-                        // if (err) {}
-                        // else console.log("email sent " + det.response)
+                        if (err) {}
+                        else remind()
                     })
                     
                     // console.log("new document created successfully")
@@ -157,4 +190,86 @@ app.post("/register",urlencoded, (req, res) => {
     })
 
 })
+
+function remind() {
+   
+    user.find({},(err, res)=> {
+        
+        if(!err) {
+            let d1 = new Date();
+            let d2 = new Date();
+            let d3 = new Date();
+            d2.setDate(d1.getDate()+1)
+            d3.setDate(d1.getDate()+2)
+            d1 = `${d1.getFullYear()}-${((d1.getMonth()+1)+"").padStart(2,"0")}-${(d1.getDate()+"").padStart(2,'0')}`
+            d2 = `${d2.getFullYear()}-${((d2.getMonth()+1)+"").padStart(2,"0")}-${(d2.getDate()+"").padStart(2,'0')}`
+            d3 = `${d3.getFullYear()}-${((d3.getMonth()+1)+"").padStart(2,"0")}-${(d3.getDate()+"").padStart(2,'0')}`
+            
+            for(let doc of res) {
+                doc = doc._doc
+                let ex_bk=""
+                
+                let dudoc = {
+                    bcount : doc.bcount,
+                    bnames : [...doc.bnames],
+                    btaken : [...doc.btaken],
+                    bdue : [...doc.bdue]
+                }
+                let nm = 1;
+                let f=0;
+                for(let i=0; i<dudoc.bcount; i++) {
+                    if(dudoc.bdue[i]===d1) {
+                        //console.log("yes today is due date");
+                        f=1;
+                        ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
+                        Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
+                        doc.bdue.splice(doc.bdue.indexOf(dudoc.bdue[i]),1)
+                        doc.btaken.splice(doc.btaken.indexOf(dudoc.btaken[i]),1)
+                        doc.bnames.splice(doc.bnames.indexOf(dudoc.bnames[i]),1)
+                        doc.bcount--;
+                    }
+                    if(dudoc.bdue[i]===d2||dudoc.bdue[i]===d3) {
+                        //console.log("due date is close");
+                        f=1;
+                        ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
+                        Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
+                    }
+                }
+                if(f) {
+                    let mailoptions = {
+                        from : '"MEC Library" muthayammal.library.edu@gmail.com',
+                        to : doc.email,
+                        subject: "Due date alert!!",
+                        html :`Hi <b>${doc.name}</b>,
+                        <br>
+                        <br>
+                        Some of the books you've taken from the library are going to expire, so take necessary action to avoid fine.
+                        <br>
+                        <br>
+                        Here are the details about the expiring books :<br><br><hr><br>
+                        ${ex_bk}<hr><br>
+                        Learn freely without worry about due date, we are here to remind you!
+                        <br>
+                        <br>
+                        KEEP READING!!&emsp;  KEEP GROWING!!`
+                    }
+                    transporter.sendMail(mailoptions, (err, det)=> {
+                        // if(err) {console.log(err)}
+                        // else {console.log("due mail sent")}
+                    })
+                    if(doc.bcount===0) {
+                        user.deleteOne({rollno:doc.rollno, email:doc.email}, (err,res)=> {
+                            //if(!err) console.log("doc deleted")
+                        })
+                    }
+                    else
+                    user.updateOne({rollno:doc.rollno, email:doc.email}, doc, (err,res)=>{
+                        
+                    })
+                }
+            }
+        }
+    })
+}
+
 
