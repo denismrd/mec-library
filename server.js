@@ -142,6 +142,7 @@ app.post("/register",urlencoded, (req, res) => {
                 user.create(data).then((doc) => {
                     res.render("success", {
                         error: 0,
+
                         status : "Your reminders got set up successfully.",
                         info : "You will be notified with the email before the following due dates :",
                         showbooks : 1,
@@ -228,7 +229,7 @@ function remind() {
                         doc.bnames.splice(doc.bnames.indexOf(dudoc.bnames[i]),1)
                         doc.bcount--;
                     }
-                    if(dudoc.bdue[i]===d2||dudoc.bdue[i]===d3) {
+                    else if(dudoc.bdue[i]===d2||dudoc.bdue[i]===d3) {
                         //console.log("due date is close");
                         f=1;
                         ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
@@ -271,5 +272,3 @@ function remind() {
         }
     })
 }
-
-
