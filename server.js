@@ -26,7 +26,8 @@ app.set("views", path.join(__dirname,"views"))
 mongo.connect("mongodb+srv://Denis:Djeensiuss@libstudents.ocsfe.mongodb.net/users?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology : true
 }).then((con) => {
     console.log("connected successfully")
 })
@@ -79,6 +80,41 @@ function convertDate(date) {
     return `${(n.getDate()+"").padStart(2,"0")}-${(n.getMonth()+1+"").padStart(2,"0")}-${(n.getFullYear()+"").padStart(2,"0")}`
 }
 
+function sdMail(data){
+    let str = "";
+    let i;
+    for(i=0; i<data.bcount-1; i++) {
+        str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
+        Due Date : ${convertDate(data.bdue[i])}<br><br>`
+    }
+    str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
+        Due Date : ${convertDate(data.bdue[i])}`
+    let mailoptions = {
+        from : '"MEC Library" muthayammal.library.edu@gmail.com',
+        to : data.email,
+        subject: "Reminders got set up successfully",
+        html :`Hi <b>${data.name}</b>,
+        <br>
+        <br>
+        Your reminders got set up successfully, you will be reminded about the due dates through this mail id.
+        <br>
+        <br>
+        Here are the details about the books you've taken :<br><br><hr>
+        ${str}<hr><br>
+        Learn freely without worry about due date, we are here to remind you!
+        <br>
+        <br>
+        KEEP READING!!&emsp;  KEEP GROWING!!`
+    }
+    transporter.sendMail(mailoptions, (err, det)=> {
+        if (err) {console.log("Error in sending mail", err)}
+        else {
+            setDates()
+            chkDate(data)
+        }
+    })
+}
+
 app.post("/register",urlencoded, (req, res) => {
 
     let data = {
@@ -125,8 +161,10 @@ app.post("/register",urlencoded, (req, res) => {
                             convertDate : convertDate,
                             ...doc
                         })
-                        user.updateOne({rollno : doc.rollno,email : doc.email}, doc, (err, doc)=>{
-                            if(!err) remind()
+                        user.updateOne({rollno : doc.rollno,email : doc.email}, doc, (err, docs)=>{
+                            if(!err){
+                                sdMail(doc)
+                            }
                         })
                     }
                 }
@@ -142,133 +180,104 @@ app.post("/register",urlencoded, (req, res) => {
                 user.create(data).then((doc) => {
                     res.render("success", {
                         error: 0,
-
                         status : "Your reminders got set up successfully.",
                         info : "You will be notified with the email before the following due dates :",
                         showbooks : 1,
                         convertDate : convertDate,
                         ...data
                     })
-                    let str = "";
-                    let i;
-                    for(i=0; i<data.bcount-1; i++) {
-                        str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
-                        Due Date : ${convertDate(data.bdue[i])}<br><br>`
-                    }
-                    str+=`<b>${i+1}) ${data.bnames[i]}</b> <br><br> Date taken : ${convertDate(data.btaken[i])}&emsp;&emsp;
-                        Due Date : ${convertDate(data.bdue[i])}`
-                    let mailoptions = {
-                        from : '"MEC Library" muthayammal.library.edu@gmail.com',
-                        to : data.email,
-                        subject: "Reminders got set up successfully",
-                        html :`Hi <b>${data.name}</b>,
-                        <br>
-                        <br>
-                        Your reminders got set up successfully, you will be reminded about the due dates through this mail id.
-                        <br>
-                        <br>
-                        Here are the details about the books you've taken :<br><br><hr>
-                        ${str}<hr><br>
-                        Learn freely without worry about due date, we are here to remind you!
-                        <br>
-                        <br>
-                        KEEP READING!!&emsp;  KEEP GROWING!!`
-                    }
-                    transporter.sendMail(mailoptions, (err, det)=> {
-                        // if (err) {}
-                        // else remind()
-                    })
-                    
-                    // console.log("new document created successfully")
-                    // console.log(doc)
+                    sdMail(data)
                 }).catch((err)=>{
                     // console.log(err)
                 })
             }
         }
-            
-
     })
-
 })
+let d1, d2, d3;
 
 function remind() {
    
     user.find({},(err, res)=> {
-        
+        setDates();
         if(!err) {
-            let d1 = new Date();
-            let d2 = new Date();
-            let d3 = new Date();
-            d2.setDate(d1.getDate()+1)
-            d3.setDate(d1.getDate()+2)
-            d1 = `${d1.getFullYear()}-${((d1.getMonth()+1)+"").padStart(2,"0")}-${(d1.getDate()+"").padStart(2,'0')}`
-            d2 = `${d2.getFullYear()}-${((d2.getMonth()+1)+"").padStart(2,"0")}-${(d2.getDate()+"").padStart(2,'0')}`
-            d3 = `${d3.getFullYear()}-${((d3.getMonth()+1)+"").padStart(2,"0")}-${(d3.getDate()+"").padStart(2,'0')}`
-            
             for(let doc of res) {
-                doc = doc._doc
-                let ex_bk=""
-                
-                let dudoc = {
-                    bcount : doc.bcount,
-                    bnames : [...doc.bnames],
-                    btaken : [...doc.btaken],
-                    bdue : [...doc.bdue]
-                }
-                let nm = 1;
-                let f=0;
-                for(let i=0; i<dudoc.bcount; i++) {
-                    if(dudoc.bdue[i]===d1) {
-                        //console.log("yes today is due date");
-                        f=1;
-                        ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
-                        Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
-                        doc.bdue.splice(doc.bdue.indexOf(dudoc.bdue[i]),1)
-                        doc.btaken.splice(doc.btaken.indexOf(dudoc.btaken[i]),1)
-                        doc.bnames.splice(doc.bnames.indexOf(dudoc.bnames[i]),1)
-                        doc.bcount--;
-                    }
-                    else if(dudoc.bdue[i]===d2||dudoc.bdue[i]===d3) {
-                        //console.log("due date is close");
-                        f=1;
-                        ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
-                        Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
-                    }
-                }
-                if(f) {
-                    let mailoptions = {
-                        from : '"MEC Library" muthayammal.library.edu@gmail.com',
-                        to : doc.email,
-                        subject: "Due date alert!!",
-                        html :`Hi <b>${doc.name}</b>,
-                        <br>
-                        <br>
-                        Some of the books you've taken from the library are going to expire, so take necessary action to avoid fine.
-                        <br>
-                        <br>
-                        Here are the details about the expiring books :<br><br><hr><br>
-                        ${ex_bk}<hr><br>
-                        Learn freely without worry about due date, we are here to remind you!
-                        <br>
-                        <br>
-                        KEEP READING!!&emsp;  KEEP GROWING!!`
-                    }
-                    transporter.sendMail(mailoptions, (err, det)=> {
-                        // if(err) {console.log(err)}
-                        // else {console.log("due mail sent")}
-                    })
-                    if(doc.bcount===0) {
-                        user.deleteOne({rollno:doc.rollno, email:doc.email}, (err,res)=> {
-                            //if(!err) console.log("doc deleted")
-                        })
-                    }
-                    else
-                    user.updateOne({rollno:doc.rollno, email:doc.email}, doc, (err,res)=>{
-                        
-                    })
-                }
+                chkDate(doc);
             }
         }
     })
+}
+
+function setDates(){
+    d1 = new Date();
+    d2 = new Date();
+    d3 = new Date();
+    d2.setDate(d1.getDate()+1)
+    d3.setDate(d1.getDate()+2)
+    d1 = `${d1.getFullYear()}-${((d1.getMonth()+1)+"").padStart(2,"0")}-${(d1.getDate()+"").padStart(2,'0')}`
+    d2 = `${d2.getFullYear()}-${((d2.getMonth()+1)+"").padStart(2,"0")}-${(d2.getDate()+"").padStart(2,'0')}`
+    d3 = `${d3.getFullYear()}-${((d3.getMonth()+1)+"").padStart(2,"0")}-${(d3.getDate()+"").padStart(2,'0')}`
+}
+
+function chkDate(doc){    
+    let ex_bk=""
+    
+    let dudoc = {
+        bcount : doc.bcount,
+        bnames : [...doc.bnames],
+        btaken : [...doc.btaken],
+        bdue : [...doc.bdue]
+    }
+    let nm = 1;
+    let f=0;
+    for(let i=0; i<dudoc.bcount; i++) {
+        if(dudoc.bdue[i]===d1) {
+            //console.log("yes today is due date");
+            f=1;
+            ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
+            Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
+            doc.bdue.splice(doc.bdue.indexOf(dudoc.bdue[i]),1)
+            doc.btaken.splice(doc.btaken.indexOf(dudoc.btaken[i]),1)
+            doc.bnames.splice(doc.bnames.indexOf(dudoc.bnames[i]),1)
+            doc.bcount--;
+        }
+        else if(dudoc.bdue[i]===d2||dudoc.bdue[i]===d3) {
+            //console.log("due date is close");
+            f=1;
+            ex_bk+=`<b>${nm++}) ${dudoc.bnames[i]}</b> <br><br> Date taken : ${convertDate(dudoc.btaken[i])}&emsp;&emsp;
+            Due Date : ${convertDate(dudoc.bdue[i])}<br><br>`;
+        }
+    }
+    if(f) {
+        let mailoptions = {
+            from : '"MEC Library" muthayammal.library.edu@gmail.com',
+            to : doc.email,
+            subject: "Due date alert!!",
+            html :`Hi <b>${doc.name}</b>,
+            <br>
+            <br>
+            Some of the books you've taken from the library are going to expire, so take necessary action to avoid fine.
+            <br>
+            <br>
+            Here are the details about the expiring books :<br><br><hr><br>
+            ${ex_bk}<hr><br>
+            Learn freely without worry about due date, we are here to remind you!
+            <br>
+            <br>
+            KEEP READING!!&emsp;  KEEP GROWING!!`
+        }
+        transporter.sendMail(mailoptions, (err, det)=> {
+            // if(err) {console.log(err)}
+            // else {console.log("due mail sent")}
+        })
+        if(doc.bcount===0) {
+            user.deleteOne({rollno:doc.rollno, email:doc.email}, (err,res)=> {
+                //if(!err) console.log("doc deleted")
+            })
+        }
+        else
+        user.updateOne({rollno:doc.rollno, email:doc.email}, doc, (err,res)=>{
+            
+        })
+    }
 }

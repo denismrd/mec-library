@@ -33,10 +33,6 @@ options.addEventListener("change", (e) => {
   document.querySelector("html").addEventListener("click", toggler);
 });
 
-// if(performance.navigation.type == 2){
-//     location.reload()
-//  }
-
 let bc = 1; //To track the books count
 let today = new Date(); //Getting today's date
 bcounthid.value = bc;
@@ -134,16 +130,14 @@ function bldcfm() {
       1 +
       ""
     ).padStart(2, "0")}-${(t.getFullYear() + "").padStart(2, "0")}`;
-    books[i].querySelector(".hidden-inputs").value = `${
-      t.getFullYear() + ""
-    }-${(t.getMonth() + 1 + "").padStart(2, "0")}-${(t.getDate() + "").padStart(
-      2,
-      "0"
-    )}`;
+    books[i].querySelector(".hidden-inputs").value = `${t.getFullYear() + ""
+      }-${(t.getMonth() + 1 + "").padStart(2, "0")}-${(t.getDate() + "").padStart(
+        2,
+        "0"
+      )}`;
     confirm.querySelector(".confirm").insertAdjacentHTML(
       "beforeend",
-      ` <div class="book-det book-name">${i}) ${
-        books[i].querySelector(".name-box input").value
+      ` <div class="book-det book-name">${i}) ${books[i].querySelector(".name-box input").value
       }</div>
         <div class="book-det start">Date taken &nbsp;&nbsp;:</div>
         <div class="book-det start-data">${dt}</div>
@@ -170,6 +164,8 @@ function submitForm() {
   form.removeEventListener("submit", blockForm);
   submit.removeEventListener("click", showConfirmBox);
   submit.click();
+  form.addEventListener("submit", blockForm); 
+  submit.addEventListener("click", showConfirmBox);
   // window.open("https://www.google.com", "_blank")http://127.0.0.1:5500/success.html?name=Denis+Raja+M&email=denismrd93%40gmail.com
 }
 
