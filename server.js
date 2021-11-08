@@ -175,8 +175,8 @@ app.post("/register",urlencoded, (req, res) => {
                         KEEP READING!!&emsp;  KEEP GROWING!!`
                     }
                     transporter.sendMail(mailoptions, (err, det)=> {
-                        if (err) {}
-                        else remind()
+                        // if (err) {}
+                        // else remind()
                     })
                     
                     // console.log("new document created successfully")

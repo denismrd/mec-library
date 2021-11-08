@@ -1,117 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/b388d0d199.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Denis-Library</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="confirm-container">
+      <div class="box">
+        <div class="confirm">
+          <div class="name">Name :</div>
+          <div class="name-data">Denis Raja M</div>
+          <div class="email">Email &nbsp;:</div>
+          <div class="email-data">denismrd93@gmail.com</div>
+          <div class="book-dt">Books Details</div>
+        </div>
+        <div class="buttons">
+          <button class="edit">Edit</button>
+          <button class="con">Confirm</button>
+        </div>
+      </div>
+    </div>
+    <div class="top">
+      <div>
+        <div>📚 Due Date Reminder</div>
+      </div>
+    </div>
+    <header>
+      <div id="#logo" class="logo">
+        <img
+          src="https://mec.edu.in/wp-content/uploads/2021/02/main-logo.png"
+          alt="college-logo"
         />
-        <script src="https://kit.fontawesome.com/b388d0d199.js" crossorigin="anonymous"></script>
-        <title>MEC-Library</title>
-        <style></style>
-    </head>
-    <body>
-        <div class="confirm-container">
-           <div class="box">
-                <div class="confirm">
-                    <div class="name">Name :</div>
-                    <div class="name-data">Denis Raja M</div>
-                    <div class="email">Email &nbsp;:</div>
-                    <div class="email-data">denismrd93@gmail.com</div>
-                    <div class="book-dt">Books Details</div>
-                    
-                </div>
-                <div class="buttons">
-                    <button class="edit">Edit</button>
-                    <button class="con">Confirm</button>
-                </div>
-           </div>
+      </div>
+      <div class="app-name">
+        <div class="book-logo">📚</div>
+        <div class="app-text">Due Date <br />Reminder</div>
+      </div>
+      <div class="bar">
+        <input type="checkbox" id="toggle-options" style="display: none" />
+        <label for="toggle-options">
+          <div class="options">
+            <div class="first"></div>
+            <div class="second"></div>
+            <div class="third"></div>
+          </div>
+        </label>
+        <ul class="slide">
+          <li class="sdelete slinks">
+            <i class="fas fa-times-circle"></i>Delete Reminders
+          </li>
+          <li class="shtu slinks">
+            <i class="fas fa-question-circle"></i>How to use
+          </li>
+          <li class="sfaq slinks"><i class="fas fa-info-circle"></i>FAQ</li>
+        </ul>
+        <div class="delete mlinks">
+          <i class="fas fa-times-circle"></i>Delete Reminders
         </div>
-        <div class="top">
-           <div>
-                <div>📚 Due Date Reminder</div>
-           </div>
+        <div class="htu mlinks">
+          <i class="fas fa-question-circle"></i>How to use
         </div>
-        <header>
-            <div id="#logo" class="logo">
-                <img
-                    src="https://mec.edu.in/wp-content/uploads/2021/02/main-logo.png"
-                    alt="college-logo"
-                />
+        <div class="faq mlinks"><i class="fas fa-info-circle"></i>FAQ</div>
+      </div>
+    </header>
+    <main>
+      <h1 class="dept-text">Department of Library</h1>
+      <form action="register" method="POST">
+        <div class="name-box">
+          <label for="name"
+            ><i class="studicon fas fa-user"></i>Student Name</label
+          >
+          <input required type="text" name="name" id="name" minlength="2" />
+        </div>
+        <div class="roll-no">
+          <label for="rollno"><i class="fas fa-list-ol"></i>Roll number</label>
+          <input
+            required
+            type="text"
+            name="rollno"
+            id="rollno"
+            minlength="4"
+            placeholder="ex. 18CS025"
+          />
+        </div>
+        <div class="mail-box">
+          <label for="mail"
+            ><i class="mailicon fas fa-envelope"></i>E-mail</label
+          >
+          <input required type="email" name="email" id="mail" />
+        </div>
+        <div class="book-count">
+          <input type="number" class="hidden-inputs" value="1" name="bcount" />
+          <div class="text"><i class="fas fa-book"></i>No. of books</div>
+          <div class="data">
+            <div class="count">1</div>
+            <button class="plus">+</button>
+            <button class="minus">-</button>
+          </div>
+        </div>
+        <div class="book-details">
+          <div class="book1 book">
+            <div class="title">BOOK-1</div>
+            <div class="name-box">
+              <label for="bname1"><i class="fas fa-book-open"></i>Name</label>
+              <input
+                required
+                type="text"
+                name="bname1"
+                minlength="3"
+                id="bname1"
+                placeholder="Enter the book name"
+              />
             </div>
-            <div class="app-name">
-                <div class="book-logo">📚</div>
-                 <div class="app-text">Due Date <br />Reminder</div>
-        </header>
-        <main>
-            <h1 class="dept-text">Department of Library</h1>
-            <form action="register" method="POST">
-                <div class="name-box">
-                    <label for="name"><i class="studicon fas fa-user"></i>Student Name</label>
-                    <input required type="text" name="name" id="name" minlength="2" />
-                </div>
-                <div class="roll-no">
-                    <label for="rollno"><i class="fas fa-list-ol"></i>Roll number</label>
-                    <input required type="text" name="rollno" id="rollno" minlength="4" placeholder="ex. 18CS025"/>
-                </div>
-                <div class="mail-box">
-                    <label for="mail"><i class="mailicon fas fa-envelope"></i>E-mail</label>
-                    <input required type="email" name="email" id="mail" />
-                </div>
-                <div class="book-count">
-                    <input type="number" class="hidden-inputs" value="1" name="bcount">
-                    <div class="text"><i class="fas fa-book"></i>No. of books</div>
-                    <div class="data">
-                        <div class="count">1</div>
-                        <button class="plus">+</button>
-                        <button class="minus">-</button>
-                    </div>
-                </div>
-                <div class="book-details">
-                    <div class="book1 book">
-                        <div class="title">BOOK-1</div>
-                        <div class="name-box">
-                            <label for="bname1"><i class="fas fa-book-open"></i>Name</label>
-                            <input required type="text" name="bname1" minlength="3" id="bname1" placeholder="Enter the book name" />
-                        </div>
-                        <div class="date-box">
-                            <label for="date1"><i class="far fa-calendar-alt dateicon"></i> Date taken</label>
-                            <input required type="date" name="bdate1" id="date1" />
-                        </div>
-                        <input type="date" name=bdue1 class="hidden-inputs">
-                    </div>
-                    <div class="book2 book hide">
-                        <div class="title">BOOK-2</div>
-                        <div class="name-box">
-                            <label for="bname2"><i class="fas fa-book-open"></i>Name</label>
-                            <input type="text" id="bname2" minlength="3" placeholder="Enter the book name" />
-                        </div>
-                        <div class="date-box">
-                            <label for="date2"><i class="far fa-calendar-alt dateicon"></i>Date taken</label>
-                            <input type="date" id="date2" />
-                        </div>
-                        <input type="date" class="hidden-inputs">
-                    </div>
-                    <div class="book3 book hide">
-                        <div class="title">BOOK-3</div>
-                        <div class="name-box">
-                            <label for="name"><i class="fas fa-book-open"></i>Name</label>
-                            <input type="text" id="name" minlength="3" placeholder="Enter the book name" />
-                        </div>
-                        <div class="date-box">
-                            <label for="date3"><i class="far fa-calendar-alt dateicon"></i>Date taken</label>
-                            <input type="date" id="date3"  />
-                        </div>
-                        <input type="date" class="hidden-inputs">
-                    </div>
-                </div>
-                <button class="submit" >Submit</button>
-            </form>
-        </main>
-        <script src="script.js"></script>
-    </body>
+            <div class="date-box">
+              <label for="date1"
+                ><i class="far fa-calendar-alt dateicon"></i> Date taken</label
+              >
+              <input required type="date" name="bdate1" id="date1" />
+            </div>
+            <input type="date" name="bdue1" class="hidden-inputs" />
+          </div>
+          <div class="book2 book hide">
+            <div class="title">BOOK-2</div>
+            <div class="name-box">
+              <label for="bname2"><i class="fas fa-book-open"></i>Name</label>
+              <input
+                type="text"
+                id="bname2"
+                minlength="3"
+                placeholder="Enter the book name"
+              />
+            </div>
+            <div class="date-box">
+              <label for="date2"
+                ><i class="far fa-calendar-alt dateicon"></i>Date taken</label
+              >
+              <input type="date" id="date2" />
+            </div>
+            <input type="date" class="hidden-inputs" />
+          </div>
+          <div class="book3 book hide">
+            <div class="title">BOOK-3</div>
+            <div class="name-box">
+              <label for="name"><i class="fas fa-book-open"></i>Name</label>
+              <input
+                type="text"
+                id="name"
+                minlength="3"
+                placeholder="Enter the book name"
+              />
+            </div>
+            <div class="date-box">
+              <label for="date3"
+                ><i class="far fa-calendar-alt dateicon"></i>Date taken</label
+              >
+              <input type="date" id="date3" />
+            </div>
+            <input type="date" class="hidden-inputs" />
+          </div>
+        </div>
+        <button class="submit">Submit</button>
+      </form>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
