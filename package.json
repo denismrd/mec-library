@@ -4,8 +4,8 @@
   "description": "Remind the students about due date by sending email",
   "main": "index.js",
   "engines": {
-    "node": "14.16.1",
-    "npm": "6.14.12"
+    "node": "16.13.0",
+    "npm": "8.1.0"
   },
   "scripts": {
     "start": "node server.js"
